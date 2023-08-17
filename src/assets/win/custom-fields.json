@@ -1,0 +1,17 @@
+[
+  {
+    "name": "hotelConfirmationNumber",
+    "datatype": "number",
+    "label": "Hotel confirmation#"
+  },
+  {
+    "name": "hotelCheckIn",
+    "datatype": "string",
+    "label": "Hotel check in"
+  },
+  {
+    "name": "hotelCheckOut",
+    "datatype": "string",
+    "label": "Hotel check out"
+  }
+]

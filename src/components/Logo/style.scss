@@ -1,0 +1,26 @@
+.logo {
+  display: grid;
+  grid-auto-flow: column;
+
+  .logo--image,
+  .logo--text {
+    display: flex;
+    align-items: center;
+    img {
+      height: 30px;
+    }
+  }
+}
+
+.logo--text {
+  width: auto;
+  img {
+    height: 70% !important;
+  }
+}
+
+.logo--image {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+}
