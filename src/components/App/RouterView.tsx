@@ -37,7 +37,7 @@ const RouterView = (props: Props) => {
           path="/home"
           element={
             <ProtectedRouteApp
-              middleware={['authenticate']} component={RequestPage} />
+              middleware={[]} component={RequestPage} />
           }
         />
         <Route

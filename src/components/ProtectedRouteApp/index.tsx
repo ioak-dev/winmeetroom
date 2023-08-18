@@ -60,42 +60,22 @@ const ProtectedRouteApp = (props: Props) => {
     const authenticate = async (type: string, redirect = true) => {
         sendMessage('spaceChange', true, params.space);
         if (authorization.isAuth) {
-            if (
-                params.space &&
-                (!authorization.permissions || !authorization.permissions['COMPANY_ADMIN'] || !authorization.permissions['COMPANY_ADMIN'].includes(params.space))
-            ) {
-                console.log(
-                    '**redirect to unauthorized page',
-                    params.space
-                );
-                redirectToUnauthorized();
-                return false;
-            }
             return true;
         }
         const accessToken = getSessionValue(`transit-access_token`);
-        const refreshToken = getSessionValue(`transit-refresh_token`);
-        if (accessToken && refreshToken) {
+        if (accessToken) {
             httpPost(
-                `/${appRealm}/user/auth/token`,
-                { grant_type: 'refresh_token', refresh_token: refreshToken },
-                null,
-                process.env.REACT_APP_ONEAUTH_API_URL
+                `/roommate/auth/token`,
+                { token: accessToken },
+                null
             )
                 .then((response: any) => {
                     if (response.status === 200) {
-                        let newAccessToken = accessToken;
-                        if (response.data?.access_token) {
-                            newAccessToken = response.data.access_token;
-                            setSessionValue(`transit-access_token`, newAccessToken);
-                        }
                         dispatch(
                             addAuth({
                                 isAuth: true,
                                 ...response.data.claims,
-                                access_token: newAccessToken,
-                                refresh_token: refreshToken,
-                                space: response.data.space,
+                                access_token: accessToken
                             })
                         );
                         return true;
@@ -103,11 +83,10 @@ const ProtectedRouteApp = (props: Props) => {
                 })
                 .catch((error: any) => {
                     removeSessionValue(`transit-access_token`);
-                    removeSessionValue(`transit-refresh_token`);
-                    redirectToLogin(appRealm);
+                    redirectToLogin();
                 });
         } else if (redirect) {
-            redirectToLogin(appRealm);
+            redirectToLogin();
         } else {
             return true;
         }
@@ -118,9 +97,10 @@ const ProtectedRouteApp = (props: Props) => {
         return false;
     };
 
-    const redirectToLogin = (space: string) => {
-        // window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${appRealm}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
-        navigate(`/login`);
+    const redirectToLogin = () => {
+        console.log("*redirect*")
+        window.location.href = `http://localhost:3000/#/login`;
+        // navigate(`/login`);
     };
 
     const redirectToUnauthorized = () => {
