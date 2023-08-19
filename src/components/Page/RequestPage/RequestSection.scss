@@ -1,0 +1,15 @@
+.request-page-request-section__main {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 12px;
+}
+
+.request-page-request-section__main__item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    border: 1px solid #ffffff30;
+    padding:24px 12px;
+    background-color: #ffffff10;
+    border-radius: 4px;
+}

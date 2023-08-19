@@ -34,7 +34,7 @@ const PeopleSection = (props: Props) => {
 
   return (
     <div className="request-page-people-section">
-      <h4>People list</h4>
+      {/* <h4>People list</h4> */}
       <table className="basicui-table table-small">
         {props.people.map((item: any) => (
           <tr>

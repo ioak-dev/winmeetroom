@@ -44,13 +44,13 @@ const RequestSection = (props: Props) => {
 
   return (
     <div className="request-page-request-section">
-      <h4>Active requests</h4>
-      <table className="basicui-table table-small">
+      {/* <h4>Active requests</h4> */}
+      <div className="request-page-request-section__main">
         {props.requestList.map((item: any) => (
-          <tr>
+          <div className="request-page-request-section__main__item">
             {props.auth?._id !== item.from && <td>{`${props.peopleMap[item.from]?.firstName} ${props.peopleMap[item.from]?.lastName}`}</td>}
             {props.auth?._id !== item.to && <td>{`${props.peopleMap[item.to]?.firstName} ${props.peopleMap[item.to]?.lastName}`}</td>}
-            <td>
+            <div>
               <div className="roommate-request-action-container">
                 {item.status === 'requested' && props.auth._id === item.to &&
                   <button className="roommate-request-action" onClick={() => onApproveRequest(item)}>
@@ -65,9 +65,9 @@ const RequestSection = (props: Props) => {
                     Withdraw
                   </button>}
               </div>
-            </td>
-          </tr>))}
-      </table>
+            </div>
+          </div>))}
+      </div>
     </div>
   );
 };
