@@ -126,10 +126,10 @@ const RequestPage = (props: Props) => {
       <div className="request-page__main">
         {view === 'verifying' && <div>Verifying</div>}
         {view === 'login' && <Login onSignin={onSignin} auth={auth} />}
-        {view === 'home' && <>
+        {view === 'home' && <div className="request-page__main__container">
           <RequestSection location={props.location} peopleMap={peopleMap} auth={auth} requestList={request} onDataChange={onDataChange} />
           <PeopleSection location={props.location} people={availablePeople} auth={auth} onDataChange={onDataChange} />
-        </>}
+        </div>}
       </div>
     </div>
   );

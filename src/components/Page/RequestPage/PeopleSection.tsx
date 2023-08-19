@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './style.scss';
+import './PeopleSection.scss';
 import ReceiptModel from '../../../model/ReceiptModel';
 import EventModel from '../../../model/EventModel';
 import Topbar from '../../../components/Topbar';
@@ -35,19 +35,19 @@ const PeopleSection = (props: Props) => {
   return (
     <div className="request-page-people-section">
       {/* <h4>People list</h4> */}
-      <table className="basicui-table table-small">
+      <div className="request-page-people-section__main">
         {props.people.map((item: any) => (
-          <tr>
-            <td>{item.firstName} {item.lastName}</td>
-            <td>
+          <div className="request-page-people-section__main__item">
+            <div>{item.firstName} {item.lastName}</div>
+            <div>
               <div className="roommate-request-action-container">
                 <button className="roommate-request-action" onClick={() => onSendRequest(item)}>
                   Send request
                 </button>
               </div>
-            </td>
-          </tr>))}
-      </table>
+            </div>
+          </div>))}
+      </div>
     </div>
   );
 };

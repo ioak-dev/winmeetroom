@@ -1,0 +1,13 @@
+.request-page-people-section__main {
+    display: grid;
+    grid-auto-flow: row;
+}
+
+.request-page-people-section__main__item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    border-bottom: 1px solid #ffffff30;
+    padding:12px 12px;
+    background-color: #ffffff10;
+}

@@ -8,6 +8,12 @@
   // column-gap: 20px;
 }
 
+.request-page__main__container {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 12px;
+}
+
 .request-page__main__item {
   // background-color: var(--color-base-200);
   padding: 10px 20px;
