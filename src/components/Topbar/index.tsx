@@ -7,6 +7,7 @@ import MobileSidebar from '../MobileSidebar';
 import './style.scss';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../Logo';
+import DarkModeIcon from '../../components/Navigation/DarkModeIcon';
 
 interface Props {
   title: string;
@@ -56,7 +57,9 @@ const Topbar = (props: Props) => {
           </button> */}
           <div>{props.title}</div>
         </div>
-        <div className="topbar__right">{props.children}</div>
+        <div className="topbar__right">
+          <DarkModeIcon />
+          {props.children}</div>
       </div>
       <MobileSidebar isOpen={isMobileSidebarOpen} onClose={closeMobileSidebar} />
     </>

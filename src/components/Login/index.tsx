@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import './style.scss';
 import LoginMethod from './LoginMethod';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Button, Input } from 'basicui';
+import { Button, Input, ThemeType } from 'basicui';
 import { signinUser } from './service';
 
 interface Props {
@@ -22,7 +22,8 @@ const Login = (props: Props) => {
   useEffect(() => {
   }, []);
 
-  const onSignin = () => {
+  const onSignin = (event: any) => {
+    event.preventDefault();
     signinUser(state).then((response: any) => {
       console.log(response);
       props.onSignin(response.accessToken);
@@ -37,9 +38,13 @@ const Login = (props: Props) => {
 
   return (
     <div className="login">
-      <Input name="email" onInput={handleChange} value={state.email} label='Email' />
-      <Input name="password" onInput={handleChange} value={state.password} label='Password' />
-      <Button onClick={onSignin}>Sign in</Button>
+      <form onSubmit={onSignin}>
+        <h4>Sign in to choose your room mate</h4>
+        <Input autoFocus name="email" onInput={handleChange} value={state.email} label='Email' />
+        <Input name="password" onInput={handleChange} value={state.password} label='Password' />
+        <Button type="submit" theme={ThemeType.primary}>Sign in</Button>
+        <Button onClick={onSignin}>Forgot password?</Button>
+      </form>
     </div>
   );
 };
