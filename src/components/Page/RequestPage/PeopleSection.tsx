@@ -18,6 +18,7 @@ interface Props {
   people: any[];
   auth: any;
   onDataChange: any;
+  isUserAvailable: boolean;
 }
 
 const PeopleSection = (props: Props) => {
@@ -36,7 +37,7 @@ const PeopleSection = (props: Props) => {
     <div className="request-page-people-section">
       {/* <h4>People list</h4> */}
       <div className="request-page-people-section__main">
-        {props.people.map((item: any) => (
+        {props.isUserAvailable && props.people.map((item: any) => (
           <div className="request-page-people-section__main__item">
             <div>{item.firstName} {item.lastName}</div>
             <div>
@@ -47,6 +48,7 @@ const PeopleSection = (props: Props) => {
               </div>
             </div>
           </div>))}
+        {!props.isUserAvailable && <div>Your roommate is finalized and cannot be changed further. If you still like to request for a possible change, please send an email to shirley@lorem.com stating the reason.</div>}
       </div>
     </div>
   );

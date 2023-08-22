@@ -31,6 +31,7 @@ const RequestPage = (props: Props) => {
   const [peopleMap, setPeopleMap] = useState<any>({});
   const [availablePeople, setAvailablePeople] = useState<any[]>([]);
   const [request, setRequest] = useState<any[]>([]);
+  const [isUserAvailable, setIsUserAvailable] = useState(false);
 
   useEffect(() => {
     const accessToken = getSessionValue(`transit-access_token`);
@@ -63,7 +64,10 @@ const RequestPage = (props: Props) => {
       _relatedPeopleIdList.push(item.from);
       _relatedPeopleIdList.push(item.to);
     })
-    setAvailablePeople(people.filter((item: any) => !_relatedPeopleIdList.includes(item._id)));
+    setAvailablePeople(people.filter((item: any) => !_relatedPeopleIdList.includes(item._id) && item._id !== auth?._id));
+
+    const _isUserAvailable = !request.find((item: any) => item.status === 'approved' && (item.from === auth._id || item.to === auth._id));
+    setIsUserAvailable(_isUserAvailable);
   }, [people, request]);
 
   const onSignin = (accessToken: string | null) => {
@@ -127,8 +131,8 @@ const RequestPage = (props: Props) => {
         {view === 'verifying' && <div>Verifying</div>}
         {view === 'login' && <Login onSignin={onSignin} auth={auth} />}
         {view === 'home' && <div className="request-page__main__container">
-          <RequestSection location={props.location} peopleMap={peopleMap} auth={auth} requestList={request} onDataChange={onDataChange} />
-          <PeopleSection location={props.location} people={availablePeople} auth={auth} onDataChange={onDataChange} />
+          <RequestSection isUserAvailable={isUserAvailable} location={props.location} peopleMap={peopleMap} auth={auth} requestList={request} onDataChange={onDataChange} />
+          <PeopleSection isUserAvailable={isUserAvailable} location={props.location} people={availablePeople} auth={auth} onDataChange={onDataChange} />
         </div>}
       </div>
     </div>

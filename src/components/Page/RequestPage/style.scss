@@ -55,3 +55,13 @@
   background-color: var(--theme-warning-500);
   color: var(--theme-warning-500i);
 }
+
+.roommate-request-action--success {
+  background-color: var(--theme-success-700);
+  color: var(--theme-success-700i);
+  border-color: var(--theme-success-700);
+}
+.roommate-request-action--success:hover {
+  background-color: var(--theme-success-800);
+  color: var(--theme-success-800i);
+}

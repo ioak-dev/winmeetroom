@@ -19,6 +19,7 @@ interface Props {
   peopleMap: any;
   onDataChange: any;
   auth: any;
+  isUserAvailable: boolean;
 }
 
 const RequestSection = (props: Props) => {
@@ -48,15 +49,28 @@ const RequestSection = (props: Props) => {
       <div className="request-page-request-section__main">
         {props.requestList.map((item: any) => (
           <div className="request-page-request-section__main__item">
-            {props.auth?._id !== item.from && <td>{`${props.peopleMap[item.from]?.firstName} ${props.peopleMap[item.from]?.lastName}`}</td>}
-            {props.auth?._id !== item.to && <td>{`${props.peopleMap[item.to]?.firstName} ${props.peopleMap[item.to]?.lastName}`}</td>}
+            <div className="request-page-request-section__main__item__left">
+              <div className="request-page-request-section__main__item__left__top">
+                {props.auth?._id !== item.from && `${props.peopleMap[item.from]?.firstName} ${props.peopleMap[item.from]?.lastName}`}
+                {props.auth?._id !== item.to && `${props.peopleMap[item.to]?.firstName} ${props.peopleMap[item.to]?.lastName}`}
+              </div>
+              <div className="request-page-request-section__main__item__left__bottom">
+                {item.status === 'requested' && props.auth._id === item.to && <>Sent you a friend request</>}
+                {item.status === 'requested' && props.auth._id === item.from && <>Waiting for their approval</>}
+                {item.status === 'approved' && props.auth._id === item.to && <>You have accepted the request</>}
+                {item.status === 'approved' && props.auth._id === item.from && <>They have accepted your request</>}
+                {item.status === 'rejected' && props.auth._id === item.to && <>You have declined the request</>}
+                {item.status === 'rejected' && props.auth._id === item.from && <>They have declined your request</>}
+              </div>
+            </div>
+
             <div>
               <div className="roommate-request-action-container">
-                {item.status === 'requested' && props.auth._id === item.to &&
-                  <button className="roommate-request-action" onClick={() => onApproveRequest(item)}>
+                {props.isUserAvailable && item.status === 'requested' && props.auth._id === item.to &&
+                  <button className="roommate-request-action roommate-request-action--success" onClick={() => onApproveRequest(item)}>
                     Accept
                   </button>}
-                {item.status === 'requested' && props.auth._id === item.to &&
+                {props.isUserAvailable && item.status === 'requested' && props.auth._id === item.to &&
                   <button className="roommate-request-action roommate-request-action--danger" onClick={() => onRejectRequest(item)}>
                     Decline
                   </button>}
